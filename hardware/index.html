@@ -1,0 +1,984 @@
+<!DOCTYPE html>
+<html lang="en" data-dark="false">
+  <head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <!--
+  put your analytics (e.g. Google Analytics) tracking code here
+-->
+
+  <!--
+  put your search engine verification (e.g. Google Search Console) tag here
+-->
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Hardware | Modulo ADC Lab</title>
+
+<link rel="icon" href="/images/icon.png">
+
+<meta name="title" content="Hardware">
+<meta name="description" content="Brunel University of London. Modulo ADC sampling systems for high-dynamic-range signal acquisition, from theory and algorithms to FPGA hardware.">
+
+<meta property="og:title" content="Hardware">
+<meta property="og:site_title" content="Modulo ADC Lab">
+<meta property="og:description" content="Brunel University of London. Modulo ADC sampling systems for high-dynamic-range signal acquisition, from theory and algorithms to FPGA hardware.">
+<meta property="og:url" content="https://brunel-modulo-adc-lab.github.io">
+<meta property="og:image" content="/images/share.jpg">
+<meta property="og:locale" content="en_US">
+
+<meta property="twitter:title" content="Hardware">
+<meta property="twitter:description" content="Brunel University of London. Modulo ADC sampling systems for high-dynamic-range signal acquisition, from theory and algorithms to FPGA hardware.">
+<meta property="twitter:url" content="https://brunel-modulo-adc-lab.github.io">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:image" content="/images/share.jpg">
+
+
+  <meta property="og:type" content="website">
+
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    
+      "@type": "WebSite",
+    
+    "name": "Hardware",
+    "description": "Brunel University of London. Modulo ADC sampling systems for high-dynamic-range signal acquisition, from theory and algorithms to FPGA hardware.",
+    "headline": "Hardware",
+    "publisher": {
+      "@type": "Organization",
+      "logo": { "@type": "ImageObject", "url": "/images/icon.png" }
+    },
+    "url": "https://brunel-modulo-adc-lab.github.io"
+  }
+</script>
+
+<link rel="alternate" type="application/rss+xml" href="https://brunel-modulo-adc-lab.github.io/feed.xml">
+
+  <!-- Google Fonts -->
+<!-- automatically get url from fonts used in theme file -->
+
+<link rel="preconnect" href="https://fonts.gstatic.com">
+<link href="https://fonts.googleapis.com/css2?display=swap&&family=Barlow:ital,wght@0,200;0,400;0,500;0,600;1,200;1,400;1,500;1,600&amp;family=Roboto+Mono:ital,wght@0,200;0,400;0,500;0,600;1,200;1,400;1,500;1,600" rel="stylesheet">
+
+<!-- Font Awesome icons (load asynchronously due to size) -->
+
+<link href="https://use.fontawesome.com/releases/v6.7.0/css/all.css" rel="stylesheet" media="none" onload="this.removeAttribute('media'); this.onload = null;">
+<noscript>
+  <link href="https://use.fontawesome.com/releases/v6.7.0/css/all.css" rel="stylesheet">
+</noscript>
+
+  <!-- third party styles -->
+<!-- https://stylishthemes.github.io/Syntax-Themes/pygments/ -->
+<link href="https://cdn.jsdelivr.net/gh/StylishThemes/Syntax-Themes/pygments/css-github/pygments-tomorrow-night-eighties.css" rel="stylesheet">
+
+<!-- include all sass in styles folder -->
+
+
+  
+    <link href="/_styles/-theme.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/alert.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/all.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/anchor.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/background.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/body.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/bold.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/button.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/card.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/checkbox.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/citation.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/code.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/cols.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/dark-toggle.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/details.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/feature.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/figure.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/float.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/font.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/footer.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/form.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/grid.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/header.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/heading.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/highlight.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/icon.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/image.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/link.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/list.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/main.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/paragraph.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/portrait.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/post-excerpt.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/post-info.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/post-nav.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/quote.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/rule.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/search-box.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/search-info.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/section.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/table.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/tags.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/textbox.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/toc.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/tooltip.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/util.css" rel="stylesheet">
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+  
+
+
+<!-- include all css in styles folder -->
+
+
+
+  <!-- third party scripts -->
+<script src="https://unpkg.com/@popperjs/core@2" defer></script>
+<script src="https://unpkg.com/tippy.js@6" defer></script>
+<script src="https://unpkg.com/mark.js@8" defer></script>
+
+<!-- include all js in scripts folder -->
+
+
+  <script src="/_scripts/anchors.js"></script>
+
+  <script src="/_scripts/dark-mode.js"></script>
+
+  <script src="/_scripts/fetch-tags.js"></script>
+
+  <script src="/_scripts/search.js"></script>
+
+  <script src="/_scripts/site-search.js"></script>
+
+  <script src="/_scripts/table-wrap.js"></script>
+
+  <script src="/_scripts/toc.js"></script>
+
+  <script src="/_scripts/tooltip.js"></script>
+
+
+</head>
+
+  <body data-toc>
+    
+
+
+
+
+
+
+
+<header class="background" style="--image: url('/images/header.svg')" data-dark="true">
+  <a href="/" class="home">
+    
+      <span class="logo">
+        
+          <svg xmlns="http://www.w3.org/2000/svg" viewbox="0 0 100 100">
+  <rect x="4" y="4" width="92" height="92" rx="16" fill="none" stroke="#93c5fd" stroke-width="5"></rect>
+  <line x1="14" y1="34" x2="86" y2="34" stroke="#93c5fd" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="4 4"></line>
+  <line x1="14" y1="66" x2="86" y2="66" stroke="#93c5fd" stroke-opacity="0.5" stroke-width="2" stroke-dasharray="4 4"></line>
+  <polyline points="14,58 26,34 26,66 40,34 40,66 54,34 54,66 68,34 68,66 86,40" fill="none" stroke="#ffffff" stroke-width="5" stroke-linejoin="round"></polyline>
+</svg>
+
+        
+      </span>
+    
+    
+      <span class="title-text" data-tooltip="Home">
+        
+          <span class="title">Modulo ADC Lab</span>
+        
+        
+          <span class="subtitle">Brunel University of London</span>
+        
+      </span>
+    
+  </a>
+
+  <input class="nav-toggle" type="checkbox" aria-label="show/hide nav">
+
+  <nav>
+    
+    
+      
+        <a href="/theory/" data-tooltip="Multi-channel modulo sampling theory">
+          Theory
+        </a>
+      
+    
+      
+        <a href="/algorithms/" data-tooltip="Signal reconstruction from folded samples">
+          Algorithms
+        </a>
+      
+    
+      
+        <a href="/hardware/" data-tooltip="FPGA modulo ADC prototype">
+          Hardware
+        </a>
+      
+    
+      
+        <a href="/applications/" data-tooltip="Radar, communications and speech">
+          Applications
+        </a>
+      
+    
+      
+        <a href="/publications/" data-tooltip="Published works">
+          Publications
+        </a>
+      
+    
+      
+        <a href="/team/" data-tooltip="About our team">
+          Team
+        </a>
+      
+    
+      
+        <a href="/contact/" data-tooltip="Email and address">
+          Contact
+        </a>
+      
+    
+  </nav>
+</header>
+
+    
+      
+
+<aside class="toc" aria-label="research navigation">
+  <p class="toc-heading">Research</p>
+  <ul>
+    
+      
+      
+      <li>
+        <a href="/theory/" class="toc-page">
+          Theory
+        </a>
+        
+      </li>
+    
+      
+      
+      <li>
+        <a href="/algorithms/" class="toc-page">
+          Algorithms
+        </a>
+        
+      </li>
+    
+      
+      
+      <li>
+        <a href="/hardware/" class="toc-page" aria-current="page">
+          Hardware
+        </a>
+        
+          <!-- filled with this page's h2 sections by toc.js -->
+          <ul class="toc-sections"></ul>
+        
+      </li>
+    
+      
+      
+      <li>
+        <a href="/applications/" class="toc-page">
+          Applications
+        </a>
+        
+      </li>
+    
+  </ul>
+</aside>
+
+    
+    <main>
+      <!--
+  modify main content of page:
+  - add section breaks
+  - attach section properties
+  - filter out blank sections
+-->
+
+
+
+
+
+
+  
+  
+  
+
+  <section class="background" data-size="page">
+    <h1 id="hardware">
+<i class="icon fa-solid fa-microchip"></i>Hardware</h1>
+
+<p>An FPGA-calibrated modulo ADC prototype with up to four channels, achieving <strong>over 100× dynamic-range extension</strong>.</p>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="The modulo ADC prototype board Zynq-7000 FPGA .">
+    <img src="/images/figs/ch08_HardwareBlock1.png" style="
+        width: auto;
+        max-height: unset;
+      " alt="The modulo ADC prototype board Zynq-7000 FPGA ." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      The modulo ADC prototype board (Zynq-7000 FPGA).
+
+    </figcaption>
+  
+</figure>
+  </section>
+
+  
+  
+  
+
+  <section class="background" data-size="page">
+    <!--
+  <background></background>
+  <dark></dark>
+  <size></size>
+-->
+
+<h2 id="live-demos">Live Demos</h2>
+
+<div class="cols" style="--cols: 2">
+  
+    
+    <div>
+<figure class="figure">
+  <video controls="" muted="" playsinline="" preload="metadata" poster="/images/videos/demo-reconstruction.jpg" style="
+      width: 100%;
+      max-height: 560px;
+      background: #000;
+      border-radius: var(--rounded);
+    ">
+    <source src="/images/videos/demo-reconstruction.mp4" type="video/mp4"></source>
+  </video>
+  
+    <figcaption class="figure-caption">
+      Real-time acquisition and reconstruction.
+
+    </figcaption>
+  
+</figure>
+
+</div>
+  
+    
+    <div>
+<figure class="figure">
+  <video controls="" muted="" playsinline="" preload="metadata" poster="/images/videos/demo-folding.jpg" style="
+      width: 100%;
+      max-height: 560px;
+      background: #000;
+      border-radius: var(--rounded);
+    ">
+    <source src="/images/videos/demo-folding.mp4" type="video/mp4"></source>
+  </video>
+  
+    <figcaption class="figure-caption">
+      Live signal folding on the oscilloscope.
+
+    </figcaption>
+  
+</figure>
+
+</div>
+  
+</div>
+  </section>
+
+  
+  
+  
+
+  <section class="background" data-size="page">
+    <!--
+  <background></background>
+  <dark></dark>
+  <size></size>
+-->
+
+<h2 id="architecture">Architecture</h2>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="System block diagram.">
+    <img src="/images/figs/ch08_SystemDiagram3.png" style="
+        width: 80%;
+        max-height: unset;
+      " alt="System block diagram." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      System block diagram.
+
+    </figcaption>
+  
+</figure>
+  </section>
+
+  
+  
+  
+
+  <section class="background" data-size="page">
+    <!--
+  <background></background>
+  <dark></dark>
+  <size></size>
+-->
+
+<h2 id="calibration">Calibration</h2>
+
+<p>A controlled under-compensation calibration makes folding stable at high folding depths.</p>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="Before calibration.">
+    <img src="/images/figs/ch08_cali22.png" style="
+        width: auto;
+        max-height: unset;
+      " alt="Before calibration." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      Before calibration.
+
+    </figcaption>
+  
+</figure>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="After calibration.">
+    <img src="/images/figs/ch08_cali11.png" style="
+        width: auto;
+        max-height: unset;
+      " alt="After calibration." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      After calibration.
+
+    </figcaption>
+  
+</figure>
+  </section>
+
+  
+  
+  
+
+  <section class="background" data-size="page">
+    <!--
+  <background></background>
+  <dark></dark>
+  <size></size>
+-->
+
+<h2 id="results">Results</h2>
+
+<div class="cols" style="--cols: 2">
+  
+    
+    <div>
+<figure class="figure">
+  <a class="figure-image" aria-label="Two-channel folding captured on the oscilloscope.">
+    <img src="/images/figs/RealHardware.png" style="
+        width: auto;
+        max-height: unset;
+      " alt="Two-channel folding captured on the oscilloscope." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      Two-channel folding captured on the oscilloscope.
+
+    </figcaption>
+  
+</figure>
+
+</div>
+  
+    
+    <div>
+<figure class="figure">
+  <a class="figure-image" aria-label="Recovery at 108 folding depth.">
+    <img src="/images/figs/Rho100.jpg" style="
+        width: auto;
+        max-height: unset;
+      " alt="Recovery at 108 folding depth." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      Recovery at 108× folding depth.
+
+    </figcaption>
+  
+</figure>
+
+</div>
+  
+</div>
+
+<div class="cols" style="--cols: 3">
+  
+    
+    <div>
+<figure class="figure">
+  <a class="figure-image" aria-label="QAM">
+    <img src="/images/figs/ch08_QAM.jpg" style="
+        width: auto;
+        max-height: unset;
+      " alt="QAM" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      QAM
+
+    </figcaption>
+  
+</figure>
+
+</div>
+  
+    
+    <div>
+<figure class="figure">
+  <a class="figure-image" aria-label="BPSK">
+    <img src="/images/figs/ch08_BPSK.jpg" style="
+        width: auto;
+        max-height: unset;
+      " alt="BPSK" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      BPSK
+
+    </figcaption>
+  
+</figure>
+
+</div>
+  
+    
+    <div>
+<figure class="figure">
+  <a class="figure-image" aria-label="FSK">
+    <img src="/images/figs/ch08_FSK.jpg" style="
+        width: auto;
+        max-height: unset;
+      " alt="FSK" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      FSK
+
+    </figcaption>
+  
+</figure>
+
+</div>
+  
+</div>
+  </section>
+
+  
+  
+  
+
+  <section class="background" data-size="page">
+    <!--
+  <background></background>
+  <dark></dark>
+  <size></size>
+-->
+
+<h2 id="publications">Publications</h2>
+
+<div class="citation-container">
+  <div class="citation">
+    
+
+    <div class="citation-text">
+      
+      
+
+      <a href="https://doi.org/hcqxhw" class="citation-title">
+        An FPGA-Calibrated Modulo ADC for High-Dynamic-Range Signal Acquisition
+      </a>
+
+      <div class="citation-authors" tabindex="0">
+        Zeyuan Li, Wenyi Yan, Lu Gan, Guoquan Li, Hongqing Liu
+
+      </div>
+
+      <div class="citation-details">
+        <span class="citation-publisher">IEEE Open Journal of Circuits and Systems</span>
+         · 
+        <span class="citation-date">01 Jan 2026</span>
+         · 
+        <span class="citation-id">doi:10.1109/OJCAS.2026.3694303</span>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+<div class="citation-container">
+  <div class="citation">
+    
+
+    <div class="citation-text">
+      
+      
+
+      <a href="https://doi.org/hcqxhx" class="citation-title">
+        On-Board Two-Channel Modulo ADC System with Folding and Reconstruction
+      </a>
+
+      <div class="citation-authors" tabindex="0">
+        Zeyuan Li, Wenyi Yan, Lu Gan, Guoquan Li, Hongqing Liu
+
+      </div>
+
+      <div class="citation-details">
+        <span class="citation-publisher">2026 IEEE 14th Sensor Array and Multichannel Signal Processing Workshop (SAM)</span>
+         · 
+        <span class="citation-date">01 Jul 2026</span>
+         · 
+        <span class="citation-id">doi:10.1109/SAM68950.2026.11687878</span>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+<div class="citation-container">
+  <div class="citation">
+    
+
+    <div class="citation-text">
+      
+      
+
+      <a href="https://doi.org/hcqxh4" class="citation-title">
+        Live Demonstration: Real-Time High-Amplitude Signal Acquisition with 2-Channel Modulo ADC
+      </a>
+
+      <div class="citation-authors" tabindex="0">
+        Zeyuan Li, Wenyi Yan, Ruixiang Zhu, Lu Gan, Hongqing Liu
+
+      </div>
+
+      <div class="citation-details">
+        <span class="citation-publisher">2025 IEEE International Symposium on Circuits and Systems (ISCAS)</span>
+         · 
+        <span class="citation-date">25 May 2025</span>
+         · 
+        <span class="citation-id">doi:10.1109/ISCAS56072.2025.11043900</span>
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+  </section>
+
+
+    </main>
+    
+
+
+<footer class="background" style="--image: url('/images/header.svg')" data-dark="true" data-size="wide">
+  <!--
+    <div>
+      Extra details like contact info or address
+    </div>
+  -->
+
+  <div>
+    
+      
+      
+      
+
+
+
+  <div class="button-wrapper">
+    <a class="button" href="mailto:lu.gan@brunel.ac.uk" data-tooltip="Email" data-style="bare" aria-label="Email">
+      <i class="icon fa-solid fa-envelope"></i>
+      
+    </a>
+  </div>
+
+
+    
+      
+      
+      
+
+
+
+  <div class="button-wrapper">
+    <a class="button" href="https://scholar.google.com/citations?user=oQXJrRYAAAAJ" data-tooltip="Google Scholar" data-style="bare" aria-label="Google Scholar">
+      <i class="icon fa-brands fa-google"></i>
+      
+    </a>
+  </div>
+
+
+    
+      
+      
+      
+
+
+
+  <div class="button-wrapper">
+    <a class="button" href="https://github.com/brunel-modulo-adc-lab" data-tooltip="GitHub" data-style="bare" aria-label="GitHub">
+      <i class="icon fa-brands fa-github"></i>
+      
+    </a>
+  </div>
+
+
+    
+  </div>
+
+  <div>
+    © 2026
+    Modulo ADC Lab
+      |   Built with
+    <a href="https://github.com/greenelab/lab-website-template">
+      Lab Website Template
+    </a>
+  </div>
+
+  <input type="checkbox" class="dark-toggle" data-tooltip="Dark mode" aria-label="toggle dark mode" oninput="onDarkToggleChange(event)">
+</footer>
+
+  </body>
+</html>
