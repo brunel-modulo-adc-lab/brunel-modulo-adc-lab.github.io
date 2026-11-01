@@ -5,6 +5,6 @@
 
   # brunel-modulo-adc-lab's Website
 
-  Visit **[website URL](#)** 🚀
+  Visit **[brunel-modulo-adc-lab.github.io](https://brunel-modulo-adc-lab.github.io)** 🚀
 
   _Built with [Lab Website Template](https://greene-lab.gitbook.io/lab-website-template-docs)_
