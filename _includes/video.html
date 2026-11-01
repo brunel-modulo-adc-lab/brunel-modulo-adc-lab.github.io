@@ -1,0 +1,24 @@
+<figure class="figure">
+  <video
+    controls
+    muted
+    playsinline
+    preload="metadata"
+    {% if include.poster %}
+      poster="{{ include.poster | relative_url | uri_escape }}"
+    {% endif %}
+    style="
+      width: {{ include.width | default: "100%" }};
+      max-height: {{ include.height | default: "560px" }};
+      background: #000;
+      border-radius: var(--rounded);
+    "
+  >
+    <source src="{{ include.video | relative_url | uri_escape }}" type="video/mp4">
+  </video>
+  {% if include.caption %}
+    <figcaption class="figure-caption">
+      {{ include.caption | markdownify | remove: "<p>" | remove: "</p>" }}
+    </figcaption>
+  {% endif %}
+</figure>

@@ -1,23 +1,35 @@
-- id: doi:10.1371/journal.pcbi.1007128
+# Journal articles
+
+- id: doi:10.1109/TIT.2026.3723974
+
+- id: doi:10.1109/TSP.2026.3696002
+
+- id: doi:10.1109/LSP.2026.3696895
+
+- id: doi:10.1109/OJCAS.2026.3694303
+
+- id: doi:10.1109/LSP.2026.3657150
+
+# Conference papers
+
+- id: doi:10.1109/SAM68950.2026.11687878
+
+- id: doi:10.1109/ICC59461.2026.11587284
+
+- id: doi:10.1109/SAMPTA64769.2025.11133533
+
+- id: doi:10.1109/ICASSP49660.2025.10888047
+
+- id: doi:10.1109/ISCAS56072.2025.11043900
+
+- id: doi:10.1109/ICASSP48485.2024.10448478
+
+# no DOI found, entered manually
+- title: High Dynamic Range Multi-channel modulo ADCs for Synthetic Aperture Radar
+  authors:
+    - Wenyi Yan
+    - Lu Gan
+    - Shaoqing Hu
+  publisher: ISCS
+  date: 2023-01-01
   type: paper
-  description: Lorem ipsum _dolor_ **sit amet**, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
-  date: 2020-12-4
-  image: https://journals.plos.org/ploscompbiol/article/figure/image?size=inline&id=info:doi/10.1371/journal.pcbi.1007128.g001&rev=2
-  buttons:
-    - type: manubot
-      link: https://greenelab.github.io/meta-review/
-    - type: source
-      text: Manuscript Source
-      link: https://github.com/greenelab/meta-review
-    - type: website
-      link: http://manubot.org/
-  tags:
-    - open science
-    - collaboration
-  repo: greenelab/meta-review
-
-- id: doi:10.1016/j.csbj.2020.05.017
-  image: https://ars.els-cdn.com/content/image/1-s2.0-S2001037020302804-gr1.jpg
-
-- id: doi:10.7554/eLife.32822
-  image: https://iiif.elifesciences.org/lax:32822%2Felife-32822-fig8-v3.tif/full/863,/0/default.webp

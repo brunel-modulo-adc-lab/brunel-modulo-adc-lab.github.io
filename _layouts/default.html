@@ -1,8 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" data-dark="false">
   {% include head.html %}
-  <body>
+  <body {% if page.toc %}data-toc{% endif %}>
     {% include header.html %}
+    {% if page.toc %}
+      {% include toc.html %}
+    {% endif %}
     <main>
       {% include content.html content=content %}
     </main>

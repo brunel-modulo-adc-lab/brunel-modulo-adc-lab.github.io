@@ -1,0 +1,28 @@
+{% assign tocpages = site.pages | where_exp: "page", "page.toc" | sort: "nav.order" %}
+
+<aside class="toc" aria-label="research navigation">
+  <p class="toc-heading">Research</p>
+  <ul>
+    {% for tocpage in tocpages %}
+      {% assign current = false %}
+      {% if tocpage.url == page.url %}
+        {% assign current = true %}
+      {% endif %}
+      <li>
+        <a
+          href="{{ tocpage.url | relative_url }}"
+          class="toc-page"
+          {% if current %}
+            aria-current="page"
+          {% endif %}
+        >
+          {{ tocpage.title }}
+        </a>
+        {% if current %}
+          <!-- filled with this page's h2 sections by toc.js -->
+          <ul class="toc-sections"></ul>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</aside>
