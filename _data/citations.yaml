@@ -151,8 +151,12 @@
   - Wenyi Yan
   - Lu Gan
   - Shaoqing Hu
-  publisher: ISCS
+  publisher: Conference paper
   date: '2023-01-01'
   type: paper
+  link: https://bura.brunel.ac.uk/handle/2438/28131
+  description: Multi-channel modulo ADCs with CRT-based recovery prevent clipping
+    of SAR raw data, giving higher dynamic range and better noise immunity than conventional
+    ADCs in SAR imaging.
   plugin: sources.py
   file: sources.yaml
