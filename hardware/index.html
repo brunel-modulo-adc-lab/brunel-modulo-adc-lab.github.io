@@ -275,7 +275,15 @@
   
 
   
+    <link href="/_styles/team.css" rel="stylesheet">
+  
+
+  
     <link href="/_styles/textbox.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/theorem.css" rel="stylesheet">
   
 
   
@@ -418,7 +426,7 @@
     
     
       
-        <a href="/theory/" data-tooltip="Multi-channel modulo sampling theory">
+        <a href="/theory/" data-tooltip="Single- and multi-channel modulo sampling theory">
           Theory
         </a>
       
@@ -466,8 +474,14 @@
       
 
 <aside class="toc" aria-label="research navigation">
-  <p class="toc-heading">Research</p>
+  <p class="toc-heading">Contents</p>
   <ul>
+    <li>
+      <a href="/" class="toc-page">
+        Home
+      </a>
+      
+    </li>
     
       
       
@@ -530,21 +544,29 @@
   
 
   <section class="background" data-size="page">
-    <h1 id="hardware">
-<i class="icon fa-solid fa-microchip"></i>Hardware</h1>
+    <h1 id="hardware">Hardware</h1>
 
-<p>An FPGA-calibrated modulo ADC prototype with up to four channels, achieving <strong>over 100× dynamic-range extension</strong>.</p>
+<p>An FPGA-calibrated modulo ADC prototype with up to four channels, which extends the input range by <strong>a factor of more than 100</strong>.</p>
+
+<div class="summary">
+  <b>Problem</b>
+  <span>Analog folding loops become unstable at large folding-depth ratios, since the threshold error accumulates with every fold and the circuit enters limit cycles. Earlier prototypes were therefore limited to small folding-depth ratios.</span>
+  <b>Approach</b>
+  <span>A comparator-triggered folding loop is controlled by a finite-state machine on a Zynq-7000 FPGA at 200 MHz. A 14-bit DAC sets the threshold between 100 and 500 mV with a deviation within ±0.2%, and a calibration converts the error that accumulates with the folding depth into a constant offset.</span>
+  <b>Result</b>
+  <span>Stable folding beyond ρ = 100. With a 3-bit ADC, the SINAD is <b>37.5 dB higher</b> and the effective number of bits (ENOB) <b>6.2 bits higher</b> than those of a conventional ADC with the same resolution, close to the theoretical value of log₂108 ≈ 6.75 bits. The control logic consumes less than 10 mW.</span>
+</div>
 
 <figure class="figure">
-  <a class="figure-image" aria-label="The modulo ADC prototype board Zynq-7000 FPGA .">
+  <a class="figure-image" aria-label="Modulo ADC prototype board based on a Zynq-7000 FPGA.">
     <img src="/images/figs/ch08_HardwareBlock1.png" style="
         width: auto;
         max-height: unset;
-      " alt="The modulo ADC prototype board Zynq-7000 FPGA ." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="Modulo ADC prototype board based on a Zynq-7000 FPGA." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      The modulo ADC prototype board (Zynq-7000 FPGA).
+      Modulo ADC prototype board based on a Zynq-7000 FPGA.
 
     </figcaption>
   
@@ -562,7 +584,7 @@
   <size></size>
 -->
 
-<h2 id="live-demos">Live Demos</h2>
+<h2 id="demonstrations">Demonstrations</h2>
 
 <div class="cols" style="--cols: 2">
   
@@ -600,7 +622,7 @@
   </video>
   
     <figcaption class="figure-caption">
-      Live signal folding on the oscilloscope.
+      Signal folding observed on an oscilloscope.
 
     </figcaption>
   
@@ -653,7 +675,8 @@
 
 <h2 id="calibration">Calibration</h2>
 
-<p>A controlled under-compensation calibration makes folding stable at high folding depths.</p>
+<p>Comparator and DAC errors cause the threshold to deviate from its designed value, and the spread of this deviation more than doubles as ρ increases from 1.6 to 2.9.
+A controlled under-compensation subtracts a known step at every fold, so the residual error remains constant as the folding-depth ratio increases.</p>
 
 <figure class="figure">
   <a class="figure-image" aria-label="Before calibration.">
@@ -699,20 +722,50 @@
 
 <h2 id="results">Results</h2>
 
+<ul>
+  <li>
+<strong>Input range.</strong> A 10.8 V signal is acquired with a 0.1 V threshold (ρ = 108) and recovered with a SINAD of 57.1 dB using a 3-bit ADC.</li>
+  <li>
+<strong>Noise floor.</strong> The in-band noise is approximately 20 dB lower than that of a conventional ADC at ρ = 92.</li>
+  <li>
+<strong>Bandwidth.</strong> Signals up to 400 kHz are recovered at smaller folding-depth ratios, with a reconstruction SNR of 22–33 dB.</li>
+  <li>
+<strong>Modulated signals.</strong> QAM, BPSK, and FSK waveforms are folded and recovered on hardware.</li>
+  <li>
+<strong>Learning-based recovery.</strong> CoFMo recovers measured 64-sample records at OF 2.77–5.53 with 4-bit quantization and an NMSE of −19.45 to −29.64 dB (see <a href="../algorithms/#learning-based-recovery-cofmo">Algorithms</a>).</li>
+  <li>
+<strong>Real-time operation.</strong> Two-channel folding and RCRT reconstruction run on the FPGA with a latency of 51 clock cycles (see <a href="../algorithms/#on-chip-real-time-reconstruction">Algorithms</a>).</li>
+</ul>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="Power spectra of the modulo ADC with recovery and of a conventional ADC at ρ 92.">
+    <img src="/images/figs/ch08_PowerCom.jpg" style="
+        width: 70%;
+        max-height: unset;
+      " alt="Power spectra of the modulo ADC with recovery and of a conventional ADC at ρ 92." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      Power spectra of the modulo ADC with recovery and of a conventional ADC at ρ = 92.
+
+    </figcaption>
+  
+</figure>
+
 <div class="cols" style="--cols: 2">
   
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="Two-channel folding captured on the oscilloscope.">
+  <a class="figure-image" aria-label="Two-channel folding recorded on an oscilloscope.">
     <img src="/images/figs/RealHardware.png" style="
         width: auto;
         max-height: unset;
-      " alt="Two-channel folding captured on the oscilloscope." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="Two-channel folding recorded on an oscilloscope." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      Two-channel folding captured on the oscilloscope.
+      Two-channel folding recorded on an oscilloscope.
 
     </figcaption>
   
@@ -723,15 +776,15 @@
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="Recovery at 108 folding depth.">
+  <a class="figure-image" aria-label="Recovery at a folding-depth ratio of 108.">
     <img src="/images/figs/Rho100.jpg" style="
         width: auto;
         max-height: unset;
-      " alt="Recovery at 108 folding depth." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="Recovery at a folding-depth ratio of 108." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      Recovery at 108× folding depth.
+      Recovery at a folding-depth ratio of 108.
 
     </figcaption>
   
@@ -746,15 +799,15 @@
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="QAM">
+  <a class="figure-image" aria-label="QAM.">
     <img src="/images/figs/ch08_QAM.jpg" style="
         width: auto;
         max-height: unset;
-      " alt="QAM" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="QAM." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      QAM
+      QAM.
 
     </figcaption>
   
@@ -765,15 +818,15 @@
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="BPSK">
+  <a class="figure-image" aria-label="BPSK.">
     <img src="/images/figs/ch08_BPSK.jpg" style="
         width: auto;
         max-height: unset;
-      " alt="BPSK" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="BPSK." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      BPSK
+      BPSK.
 
     </figcaption>
   
@@ -784,15 +837,15 @@
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="FSK">
+  <a class="figure-image" aria-label="FSK.">
     <img src="/images/figs/ch08_FSK.jpg" style="
         width: auto;
         max-height: unset;
-      " alt="FSK" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="FSK." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      FSK
+      FSK.
 
     </figcaption>
   
@@ -822,7 +875,6 @@
 
     <div class="citation-text">
       
-      
 
       <a href="https://doi.org/hcqxhw" class="citation-title">
         An FPGA-Calibrated Modulo ADC for High-Dynamic-Range Signal Acquisition
@@ -837,8 +889,10 @@
         <span class="citation-publisher">IEEE Open Journal of Circuits and Systems</span>
          · 
         <span class="citation-date">01 Jan 2026</span>
-         · 
-        <span class="citation-id">doi:10.1109/OJCAS.2026.3694303</span>
+        
+           · 
+          <span class="citation-id">doi:10.1109/OJCAS.2026.3694303</span>
+        
       </div>
 
       
@@ -851,7 +905,6 @@
     
 
     <div class="citation-text">
-      
       
 
       <a href="https://doi.org/hcqxhx" class="citation-title">
@@ -867,8 +920,10 @@
         <span class="citation-publisher">2026 IEEE 14th Sensor Array and Multichannel Signal Processing Workshop (SAM)</span>
          · 
         <span class="citation-date">01 Jul 2026</span>
-         · 
-        <span class="citation-id">doi:10.1109/SAM68950.2026.11687878</span>
+        
+           · 
+          <span class="citation-id">doi:10.1109/SAM68950.2026.11687878</span>
+        
       </div>
 
       
@@ -881,7 +936,6 @@
     
 
     <div class="citation-text">
-      
       
 
       <a href="https://doi.org/hcqxh4" class="citation-title">
@@ -897,8 +951,10 @@
         <span class="citation-publisher">2025 IEEE International Symposium on Circuits and Systems (ISCAS)</span>
          · 
         <span class="citation-date">25 May 2025</span>
-         · 
-        <span class="citation-id">doi:10.1109/ISCAS56072.2025.11043900</span>
+        
+           · 
+          <span class="citation-id">doi:10.1109/ISCAS56072.2025.11043900</span>
+        
       </div>
 
       

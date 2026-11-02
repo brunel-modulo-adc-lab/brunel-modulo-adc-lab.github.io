@@ -275,7 +275,15 @@
   
 
   
+    <link href="/_styles/team.css" rel="stylesheet">
+  
+
+  
     <link href="/_styles/textbox.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/theorem.css" rel="stylesheet">
   
 
   
@@ -418,7 +426,7 @@
     
     
       
-        <a href="/theory/" data-tooltip="Multi-channel modulo sampling theory">
+        <a href="/theory/" data-tooltip="Single- and multi-channel modulo sampling theory">
           Theory
         </a>
       
@@ -466,8 +474,14 @@
       
 
 <aside class="toc" aria-label="research navigation">
-  <p class="toc-heading">Research</p>
+  <p class="toc-heading">Contents</p>
   <ul>
+    <li>
+      <a href="/" class="toc-page">
+        Home
+      </a>
+      
+    </li>
     
       
       
@@ -530,10 +544,9 @@
   
 
   <section class="background" data-size="page">
-    <h1 id="applications">
-<i class="icon fa-solid fa-satellite-dish"></i>Applications</h1>
+    <h1 id="applications">Applications</h1>
 
-<p>Wherever strong and weak signals arrive together, modulo ADCs avoid saturation without extra gain control.</p>
+<p>Modulo ADCs are suited to applications in which strong and weak signal components arrive simultaneously, since they avoid saturation without automatic gain control.</p>
   </section>
 
   
@@ -549,22 +562,29 @@
 
 <h2 id="synthetic-aperture-radar">Synthetic Aperture Radar</h2>
 
-<p>Strong reflections no longer saturate the receiver.</p>
+<div class="summary">
+  <b>Problem</b>
+  <span>Radar scenes span 60–120 dB between strong clutter and weak targets. Clipping of the raw data by the ADC distorts the focused image, and single-channel recovery would require a high oversampling factor.</span>
+  <b>Approach</b>
+  <span>The I and Q components of measured mmWave SAR raw data are each sampled by a three-channel modulo ADC (ρ = 60) at the Nyquist rate per channel and recovered with the robust CRT (RCRT).</span>
+  <b>Result</b>
+  <span>The reconstructed image matches the unclipped reference, and <b>8 bits per channel (24 bits per sample)</b> achieve a reconstruction error no larger than that of a 32-bit conventional ADC without clipping.</span>
+</div>
 
 <div class="cols" style="--cols: 3">
   
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="Ground truth">
+  <a class="figure-image" aria-label="Reference image.">
     <img src="/images/figs/ch09_sar_original.jpg" style="
         width: auto;
         max-height: unset;
-      " alt="Ground truth" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="Reference image." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      Ground truth
+      Reference image.
 
     </figcaption>
   
@@ -575,15 +595,15 @@
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="Conventional ADC, clipped">
+  <a class="figure-image" aria-label="Conventional ADC with clipping.">
     <img src="/images/figs/ch09_sar_quantra.jpg" style="
         width: auto;
         max-height: unset;
-      " alt="Conventional ADC, clipped" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="Conventional ADC with clipping." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      Conventional ADC, clipped
+      Conventional ADC with clipping.
 
     </figcaption>
   
@@ -594,15 +614,15 @@
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="3-channel modulo ADC">
+  <a class="figure-image" aria-label="Three-channel modulo ADC.">
     <img src="/images/figs/ch09_sar_quafour7.jpg" style="
         width: auto;
         max-height: unset;
-      " alt="3-channel modulo ADC" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="Three-channel modulo ADC." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      3-channel modulo ADC
+      Three-channel modulo ADC.
 
     </figcaption>
   
@@ -611,6 +631,21 @@
 </div>
   
 </div>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="Reconstruction error versus ADC resolution. From 8 bits per channel, the three-channel modulo ADC reaches the numerical precision limit, whereas the error of the clipping ADC remains approximately 1.">
+    <img src="/images/figs/ch09_sar_quantization.jpg" style="
+        width: 60%;
+        max-height: unset;
+      " alt="Reconstruction error versus ADC resolution. From 8 bits per channel, the three-channel modulo ADC reaches the numerical precision limit, whereas the error of the clipping ADC remains approximately 1." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      Reconstruction error versus ADC resolution. From 8 bits per channel, the three-channel modulo ADC reaches the numerical precision limit, whereas the error of the clipping ADC remains approximately 1.
+
+    </figcaption>
+  
+</figure>
 
 <div class="citation-container">
   <div class="citation">
@@ -618,7 +653,6 @@
 
     <div class="citation-text">
       
-      <i class="icon fa-solid fa-scroll"></i>
 
       <a href="https://bura.brunel.ac.uk/handle/2438/28131" class="citation-title">
         High Dynamic Range Multi-channel modulo ADCs for Synthetic Aperture Radar
@@ -633,8 +667,7 @@
         <span class="citation-publisher">Conference paper</span>
          · 
         <span class="citation-date">01 Jan 2023</span>
-         · 
-        <span class="citation-id">[no id info]</span>
+        
       </div>
 
       
@@ -656,56 +689,50 @@
 
 <h2 id="mmwave-mimo-communications">mmWave MIMO Communications</h2>
 
-<p>A modulo-ADC receiver in IRS-aided mmWave MIMO raises spectral efficiency and lowers the required bit depth.</p>
+<div class="summary">
+  <b>Problem</b>
+  <span>The received power in mmWave links varies over a wide range, so a low-resolution ADC clips the received signal and the spectral efficiency saturates regardless of the beamforming design.</span>
+  <b>Approach</b>
+  <span>A modulo ADC is placed on every receive branch, and the transmit precoder, the receive combiner, and the phases of the intelligent reflecting surface (IRS) are designed jointly.</span>
+  <b>Result</b>
+  <span>With a 2-bit modulo ADC, the spectral efficiency is 11.7 bit/s/Hz compared with 9.6 bit/s/Hz for a clipping ADC, and the bit error rate (BER) is 1.3 × 10⁻³ compared with 2.4 × 10⁻². A conventional receiver requires <b>3–4 additional bits</b> to reach the same performance.</span>
+</div>
 
-<div class="cols" style="--cols: 2">
-  
-    
-    <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="IRS-aided mmWave MIMO with a modulo-ADC receiver.">
+  <a class="figure-image" aria-label="IRS-aided mmWave MIMO system with a modulo ADC receiver.">
     <img src="/images/figs/ch09_irs_sysmodel.png" style="
-        width: auto;
+        width: 80%;
         max-height: unset;
-      " alt="IRS-aided mmWave MIMO with a modulo-ADC receiver." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="IRS-aided mmWave MIMO system with a modulo ADC receiver." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      IRS-aided mmWave MIMO with a modulo-ADC receiver.
+      IRS-aided mmWave MIMO system with a modulo ADC receiver.
 
     </figcaption>
   
 </figure>
 
-</div>
-  
-    
-    <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="Recovered 16-QAM constellation.">
+  <a class="figure-image" aria-label="Recovered 16-QAM constellations with 2-bit quantization for the modulo ADC left and the conventional ADC right .">
     <img src="/images/figs/ch09_irs_constellation.png" style="
-        width: auto;
+        width: 80%;
         max-height: unset;
-      " alt="Recovered 16-QAM constellation." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="Recovered 16-QAM constellations with 2-bit quantization for the modulo ADC left and the conventional ADC right ." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      Recovered 16-QAM constellation.
+      Recovered 16-QAM constellations with 2-bit quantization for the modulo ADC (left) and the conventional ADC (right).
 
     </figcaption>
   
 </figure>
-
-</div>
-  
-</div>
 
 <div class="citation-container">
   <div class="citation">
     
 
     <div class="citation-text">
-      
       
 
       <a href="https://doi.org/hcqxhz" class="citation-title">
@@ -721,8 +748,10 @@
         <span class="citation-publisher">ICC 2026 - IEEE International Conference on Communications</span>
          · 
         <span class="citation-date">24 May 2026</span>
-         · 
-        <span class="citation-id">doi:10.1109/ICC59461.2026.11587284</span>
+        
+           · 
+          <span class="citation-id">doi:10.1109/ICC59461.2026.11587284</span>
+        
       </div>
 
       
@@ -744,7 +773,14 @@
 
 <h2 id="speech-and-audio">Speech and Audio</h2>
 
-<p>Loud transients are captured without clipping or automatic gain control.</p>
+<div class="summary">
+  <b>Problem</b>
+  <span>Speech has a high peak-to-average power ratio. A converter scaled for conversational levels clips plosives and other loud transients, and automatic gain control responds too slowly to follow them.</span>
+  <b>Approach</b>
+  <span>Microphone signals are acquired with the single-channel hardware prototype and recovered with RSoD.</span>
+  <b>Result</b>
+  <span>Microphone tones are recovered with a frequency error of at most 1.3%, and a spoken “hello” with an SNR of 20.1 dB. These preliminary hardware results were obtained at a folding-depth ratio of approximately 2.</span>
+</div>
 
 <figure class="figure">
   <a class="figure-image" aria-label="Audio acquisition with the modulo ADC prototype.">
@@ -766,15 +802,15 @@
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="Conventional ADC: transients clipped.">
+  <a class="figure-image" aria-label="Conventional ADC, in which the transients are clipped.">
     <img src="/images/figs/Ch9_audio_clip.png" style="
         width: auto;
         max-height: unset;
-      " alt="Conventional ADC: transients clipped." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="Conventional ADC, in which the transients are clipped." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      Conventional ADC: transients clipped.
+      Conventional ADC, in which the transients are clipped.
 
     </figcaption>
   

@@ -275,7 +275,15 @@
   
 
   
+    <link href="/_styles/team.css" rel="stylesheet">
+  
+
+  
     <link href="/_styles/textbox.css" rel="stylesheet">
+  
+
+  
+    <link href="/_styles/theorem.css" rel="stylesheet">
   
 
   
@@ -376,7 +384,7 @@
 
 </head>
 
-  <body>
+  <body data-toc>
     
 
 
@@ -418,7 +426,7 @@
     
     
       
-        <a href="/theory/" data-tooltip="Multi-channel modulo sampling theory">
+        <a href="/theory/" data-tooltip="Single- and multi-channel modulo sampling theory">
           Theory
         </a>
       
@@ -463,6 +471,60 @@
 </header>
 
     
+      
+
+<aside class="toc" aria-label="research navigation">
+  <p class="toc-heading">Contents</p>
+  <ul>
+    <li>
+      <a href="/" class="toc-page" aria-current="page">
+        Home
+      </a>
+      
+        <ul class="toc-sections"></ul>
+      
+    </li>
+    
+      
+      
+      <li>
+        <a href="/theory/" class="toc-page">
+          Theory
+        </a>
+        
+      </li>
+    
+      
+      
+      <li>
+        <a href="/algorithms/" class="toc-page">
+          Algorithms
+        </a>
+        
+      </li>
+    
+      
+      
+      <li>
+        <a href="/hardware/" class="toc-page">
+          Hardware
+        </a>
+        
+      </li>
+    
+      
+      
+      <li>
+        <a href="/applications/" class="toc-page">
+          Applications
+        </a>
+        
+      </li>
+    
+  </ul>
+</aside>
+
+    
     <main>
       <!--
   modify main content of page:
@@ -483,23 +545,40 @@
   <section class="background" data-size="page">
     <h1 id="modulo-adc-lab">Modulo ADC Lab</h1>
 
-<p>Conventional ADCs <strong>clip</strong> when a signal exceeds their range. A modulo ADC <strong>folds</strong> it back instead, and the original is recovered digitally.
-We study modulo sampling from theory and algorithms to FPGA hardware and applications.</p>
+<p>We study modulo sampling, which acquires signals whose amplitude exceeds the input range of an analog-to-digital converter (ADC). Our work covers sampling theory, recovery algorithms, FPGA hardware, and applications.</p>
+  </section>
+
+  
+  
+  
+
+  <section class="background" data-size="page">
+    <!--
+  <background></background>
+  <dark></dark>
+  <size></size>
+-->
+
+<h2 id="what-is-a-modulo-adc">What Is a Modulo ADC?</h2>
+
+<h3 id="clipping-in-conventional-acquisition">Clipping in Conventional Acquisition</h3>
+
+<p>Every sensor has a finite input range. When a camera records a bright scene with a single exposure, the highlights saturate, and the saturated pixels no longer record the scene detail.</p>
 
 <div class="cols" style="--cols: 2">
   
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="Conventional ADC: the peak is clipped and lost.">
-    <img src="/images/figs/ch01_ClassADC.png" style="
+  <a class="figure-image" aria-label="Single exposure, in which the dome and the fountain are saturated.">
+    <img src="/images/figs/ch01_overexposed.jpg" style="
         width: auto;
         max-height: unset;
-      " alt="Conventional ADC: the peak is clipped and lost." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="Single exposure, in which the dome and the fountain are saturated." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      Conventional ADC: the peak is clipped and lost.
+      Single exposure, in which the dome and the fountain are saturated.
 
     </figcaption>
   
@@ -510,15 +589,15 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
     
     <div>
 <figure class="figure">
-  <a class="figure-image" aria-label="Modulo ADC: the peak is folded and can be recovered.">
-    <img src="/images/figs/ch01_ModuloADC.png" style="
+  <a class="figure-image" aria-label="The same scene obtained by merging several exposures.">
+    <img src="/images/figs/ch01_hdr_merged.jpg" style="
         width: auto;
         max-height: unset;
-      " alt="Modulo ADC: the peak is folded and can be recovered." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+      " alt="The same scene obtained by merging several exposures." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
   
     <figcaption class="figure-caption">
-      Modulo ADC: the peak is folded and can be recovered.
+      The same scene obtained by merging several exposures.
 
     </figcaption>
   
@@ -527,6 +606,73 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
 </div>
   
 </div>
+
+<p class="center"><small>Photographs by Kevin McCoy, <a href="https://creativecommons.org/licenses/by-sa/3.0/">CC BY-SA 3.0</a>.</small></p>
+
+<p>An ADC has the same limitation. Every sample beyond the full-scale level ±λ is clipped, and additional bits refine the quantization within [−λ, λ) without extending this interval.</p>
+
+<h3 id="folding-instead-of-clipping">Folding Instead of Clipping</h3>
+
+<p>A modulo ADC <strong>folds</strong> an out-of-range signal back into [−λ, λ) rather than clipping it. Each folded sample differs from the input by an integer multiple of 2λ, so a digital algorithm can identify these integers and recover the input.</p>
+
+<div class="cols" style="--cols: 2">
+  
+    
+    <div>
+<figure class="figure">
+  <a class="figure-image" aria-label="Conventional ADC, in which the peaks are clipped.">
+    <img src="/images/figs/ch01_ClassADC.png" style="
+        width: auto;
+        max-height: unset;
+      " alt="Conventional ADC, in which the peaks are clipped." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      Conventional ADC, in which the peaks are clipped.
+
+    </figcaption>
+  
+</figure>
+
+</div>
+  
+    
+    <div>
+<figure class="figure">
+  <a class="figure-image" aria-label="Modulo ADC with the same threshold and 3 bits, in which the peaks are folded into the input range.">
+    <img src="/images/figs/ch01_ModuloADC.png" style="
+        width: auto;
+        max-height: unset;
+      " alt="Modulo ADC with the same threshold and 3 bits, in which the peaks are folded into the input range." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      Modulo ADC with the same threshold and 3 bits, in which the peaks are folded into the input range.
+
+    </figcaption>
+  
+</figure>
+
+</div>
+  
+</div>
+
+<figure class="figure">
+  <a class="figure-image" aria-label="Modulo ADC sampling system, consisting of an anti-aliasing filter, folding, sampling, and digital recovery.">
+    <img src="/images/figs/SystemArchi.png" style="
+        width: auto;
+        max-height: unset;
+      " alt="Modulo ADC sampling system, consisting of an anti-aliasing filter, folding, sampling, and digital recovery." loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+  </a>
+  
+    <figcaption class="figure-caption">
+      Modulo ADC sampling system, consisting of an anti-aliasing filter, folding, sampling, and digital recovery.
+
+    </figcaption>
+  
+</figure>
+
+<p>A low-resolution ADC can thus acquire signals whose amplitude exceeds its input range by a factor of more than 100, as demonstrated on our hardware prototype. We study <strong>single-channel</strong> systems, which recover the signal from its temporal smoothness, and <strong>multi-channel</strong> systems with different thresholds, which recover it by the Chinese remainder theorem (CRT).</p>
   </section>
 
   
@@ -547,7 +693,7 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
  
 <div class="card" data-style="">
   <a href="/theory" aria-label="Theory" class="card-image">
-    <img src="/images/figs/ch05_Mul-flow.png" alt="Theory" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
+    <img src="/images/figs/crt_channels.jpg" alt="Theory" loading="lazy" onerror="this.src = '/images/fallback.svg'; this.onerror = null;">
   </a>
 
   <div class="card-text">
@@ -561,7 +707,7 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
 
     
       <p>
-        Multi-channel modulo ADCs, robust CRT and bit-depth analysis.
+        Single-channel recovery guarantees and the multi-channel robust CRT.
 
       </p>
     
@@ -588,7 +734,7 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
 
     
       <p>
-        Low-rate, noise-robust signal reconstruction.
+        Single- and multi-channel recovery at low sampling rates and under noise.
 
       </p>
     
@@ -615,7 +761,7 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
 
     
       <p>
-        FPGA-calibrated prototype with over 100× dynamic-range extension.
+        FPGA-calibrated prototype that extends the input range by a factor of more than 100.
 
       </p>
     
@@ -642,7 +788,7 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
 
     
       <p>
-        Radar imaging, mmWave communications and speech.
+        Radar imaging, mmWave communications, and speech acquisition.
 
       </p>
     
@@ -670,17 +816,17 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
   
     
     <div>
-<p class="center"><span style="font-size: 2.6rem; font-weight: 600;">&gt;100×</span><br>dynamic-range extension on hardware</p>
+<p class="center"><span style="font-size: 2.6rem; font-weight: 600;">&gt;100×</span><br>input-range extension on hardware</p>
 </div>
   
     
     <div>
-<p class="center"><span style="font-size: 2.6rem; font-weight: 600;">2πe → 3</span><br>oversampling needed for single-channel recovery</p>
+<p class="center"><span style="font-size: 2.6rem; font-weight: 600;">2πe → 3</span><br>oversampling factor required for single-channel recovery</p>
 </div>
   
     
     <div>
-<p class="center"><span style="font-size: 2.6rem; font-weight: 600;">1–2 bits</span><br>overhead over a conventional ADC</p>
+<p class="center"><span style="font-size: 2.6rem; font-weight: 600;">1–2 bits</span><br>per-sample overhead relative to a conventional ADC</p>
 </div>
   
 </div>
@@ -735,7 +881,7 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
   </video>
   
     <figcaption class="figure-caption">
-      Live signal folding on the oscilloscope.
+      Signal folding observed on an oscilloscope.
 
     </figcaption>
   
@@ -759,12 +905,18 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
 
 <h2 id="recent-publications">Recent Publications</h2>
 
+<div class="theorem">
+  <p class="theorem-title">Accepted for publication in IEEE Transactions on Instrumentation and Measurement</p>
+  <p><b>Decoupled Coarse-to-Fine Learning for Modulo Signal Recovery</b></p>
+  <p><a href="members/yutao-jin">Yutao Jin</a>, Wenyi Yan, Zichen Wang, Hongqing Liu, Guoquan Li, Lu Gan. Provisionally accepted, November 2026.</p>
+  <p>CoFMo classifies the integer fold count of every sample and then refines the residual waveform. On measured modulo ADC data with 4-bit quantization, it recovers 64-sample records with a normalized mean-square error (NMSE) of −19.45 to −29.64 dB, whereas the analytical baselines remain near 0 dB. To our knowledge, it is the first learning-based modulo recovery method validated on physical modulo ADC measurements. <a href="algorithms/#learning-based-recovery-cofmo">Details</a></p>
+</div>
+
 <div class="citation-container">
   <div class="citation">
     
 
     <div class="citation-text">
-      
       
 
       <a href="https://doi.org/hcqxhs" class="citation-title">
@@ -780,8 +932,10 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
         <span class="citation-publisher">IEEE Transactions on Information Theory</span>
          · 
         <span class="citation-date">01 Oct 2026</span>
-         · 
-        <span class="citation-id">doi:10.1109/TIT.2026.3723974</span>
+        
+           · 
+          <span class="citation-id">doi:10.1109/TIT.2026.3723974</span>
+        
       </div>
 
       
@@ -794,7 +948,6 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
     
 
     <div class="citation-text">
-      
       
 
       <a href="https://doi.org/hcqxht" class="citation-title">
@@ -810,8 +963,10 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
         <span class="citation-publisher">IEEE Transactions on Signal Processing</span>
          · 
         <span class="citation-date">01 Jan 2026</span>
-         · 
-        <span class="citation-id">doi:10.1109/TSP.2026.3696002</span>
+        
+           · 
+          <span class="citation-id">doi:10.1109/TSP.2026.3696002</span>
+        
       </div>
 
       
@@ -824,7 +979,6 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
     
 
     <div class="citation-text">
-      
       
 
       <a href="https://doi.org/hcqxhw" class="citation-title">
@@ -840,8 +994,10 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
         <span class="citation-publisher">IEEE Open Journal of Circuits and Systems</span>
          · 
         <span class="citation-date">01 Jan 2026</span>
-         · 
-        <span class="citation-id">doi:10.1109/OJCAS.2026.3694303</span>
+        
+           · 
+          <span class="citation-id">doi:10.1109/OJCAS.2026.3694303</span>
+        
       </div>
 
       
@@ -850,8 +1006,8 @@ We study modulo sampling from theory and algorithms to FPGA hardware and applica
 </div>
 
 <div class="button-wrapper">
-    <a class="button" href="/publications" data-style="bare" data-flip="" aria-label="fa-solid fa-arrow-right">
-      <i class="icon fa-solid fa-arrow-right"></i>
+    <a class="button" href="/publications" data-style="bare" aria-label="button">
+      
       
         <span>All publications</span>
       
