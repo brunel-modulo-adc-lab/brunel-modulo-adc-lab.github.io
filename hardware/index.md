@@ -45,7 +45,7 @@ An FPGA-calibrated modulo ADC prototype with up to four channels, which extends 
 
 ## Calibration
 
-Test Comparator and DAC errors cause the threshold to deviate from its designed value, and the spread of this deviation more than doubles as ρ increases from 1.6 to 2.9.
+Comparator and DAC errors cause the threshold to deviate from its designed value, and the spread of this deviation more than doubles as ρ increases from 1.6 to 2.9.
 A controlled under-compensation subtracts a known step at every fold, so the residual error remains constant as the folding-depth ratio increases.
 
 {% include figure.html image="images/figs/ch08_cali22.png" caption="Before calibration." %}
