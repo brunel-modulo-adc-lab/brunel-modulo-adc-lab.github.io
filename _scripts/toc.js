@@ -62,5 +62,5 @@
   };
 
   // after page loads
-  window.addEventListener("load", onLoad);
+  window.addEventListener("DOMContentLoaded", onLoad);
 }
