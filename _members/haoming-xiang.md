@@ -8,7 +8,9 @@ aliases:
   - H Xiang
 links:
   email: haoming.xiang@brunel.ac.uk
+  email-2: haomingxiang58@gmail.com
   google-scholar: bUFosYwAAAAJ
+  home-page: https://haoming58.github.io/
 ---
 
 Haoming Xiang is a researcher focused on IoT, antennas, and AI for science.

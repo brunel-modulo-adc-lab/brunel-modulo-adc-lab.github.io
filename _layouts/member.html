@@ -4,6 +4,7 @@ layout: default
 
 {% assign scholar = page.links["google-scholar"] %}
 {% assign homepage = page.links["home-page"] %}
+{% assign email2 = page.links["email-2"] %}
 
 {% capture floatcontent %}
 
@@ -12,6 +13,9 @@ layout: default
 <p class="member-contact">
   {% if page.links.email %}
     Email: <a href="mailto:{{ page.links.email }}">{{ page.links.email }}</a><br>
+  {% endif %}
+  {% if email2 %}
+    Email: <a href="mailto:{{ email2 }}">{{ email2 }}</a><br>
   {% endif %}
   {% if scholar %}
     <a href="https://scholar.google.com/citations?user={{ scholar }}">Google Scholar</a><br>
