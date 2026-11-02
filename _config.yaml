@@ -1,5 +1,5 @@
 # site properties and page defaults
-title: Modulo ADC Lab
+title: Modulo ADC Research
 subtitle: Brunel University of London
 description: Modulo ADC sampling systems for high-dynamic-range signal acquisition, from theory and algorithms to FPGA hardware.
 header: images/header.svg

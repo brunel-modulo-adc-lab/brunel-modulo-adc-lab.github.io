@@ -2,7 +2,7 @@
 toc: true
 ---
 
-# Modulo ADC Lab
+# Modulo ADC Research
 
 We study modulo sampling, which acquires signals whose amplitude exceeds the input range of an analog-to-digital converter (ADC). Our work covers sampling theory, recovery algorithms, FPGA hardware, and applications.
 
