@@ -8,3 +8,5 @@
   Visit **[brunel-modulo-adc-lab.github.io](https://brunel-modulo-adc-lab.github.io)** 🚀
 
   _Built with [Lab Website Template](https://greene-lab.gitbook.io/lab-website-template-docs)_
+
+  Maintenance guide (in Chinese): [MAINTAINING.md](MAINTAINING.md). Conventions for Claude Code: [CLAUDE.md](CLAUDE.md).
