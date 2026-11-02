@@ -65,6 +65,23 @@
   link: https://doi.org/hcqxhr
   plugin: sources.py
   file: sources.yaml
+- title: Decoupled Coarse-to-Fine Learning for Modulo Signal Recovery
+  authors:
+  - Yutao Jin
+  - Wenyi Yan
+  - Zichen Wang
+  - Hongqing Liu
+  - Guoquan Li
+  - Lu Gan
+  publisher: IEEE Transactions on Instrumentation and Measurement
+  note: Accepted for publication
+  date: '2026-11-02'
+  type: paper
+  description: CoFMo is a coarse-to-fine learning framework that classifies integer
+    fold counts and then refines the residual. To our knowledge, it is the first learning-based
+    modulo recovery method validated on physical modulo ADC measurements.
+  plugin: sources.py
+  file: sources.yaml
 - id: doi:10.1109/SAM68950.2026.11687878
   title: On-Board Two-Channel Modulo ADC System with Folding and Reconstruction
   authors:
@@ -155,8 +172,8 @@
   date: '2023-01-01'
   type: paper
   link: https://bura.brunel.ac.uk/handle/2438/28131
-  description: Multi-channel modulo ADCs with CRT-based recovery prevent clipping
-    of SAR raw data, giving higher dynamic range and better noise immunity than conventional
-    ADCs in SAR imaging.
+  description: Multi-channel modulo ADCs with CRT-based recovery avoid clipping of
+    SAR raw data and provide a larger dynamic range and higher robustness to noise
+    than conventional ADCs in SAR imaging.
   plugin: sources.py
   file: sources.yaml

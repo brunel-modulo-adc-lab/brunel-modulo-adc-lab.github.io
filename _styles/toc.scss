@@ -87,6 +87,11 @@ $width: 220px;
   font-size: 0.9rem;
 }
 
+.toc-sections .toc-sub a {
+  padding: 3px 0 3px 12px;
+  font-size: 0.85rem;
+}
+
 .toc-sections a[data-active] {
   color: var(--primary);
   font-weight: var(--semi-bold);

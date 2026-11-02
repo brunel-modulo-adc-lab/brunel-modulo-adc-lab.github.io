@@ -5,20 +5,10 @@ nav:
   tooltip: Email and address
 ---
 
-# {% include icon.html icon="fa-regular fa-envelope" %}Contact
+# Contact
 
-We welcome collaborations and prospective students interested in sampling theory and modulo ADC hardware.
+We welcome inquiries about collaboration and from prospective students interested in sampling theory and modulo ADC hardware.
 
-{%
-  include button.html
-  type="email"
-  text="lu.gan@brunel.ac.uk"
-  link="lu.gan@brunel.ac.uk"
-%}
-{%
-  include button.html
-  type="address"
-  text="Brunel University of London, Uxbridge UB8 3PH, UK"
-  tooltip="Our location on Google Maps"
-  link="https://www.google.com/maps/search/?api=1&query=Brunel+University+of+London+UB8+3PH"
-%}
+Email: <a href="mailto:lu.gan@brunel.ac.uk">lu.gan@brunel.ac.uk</a>
+
+Address: <a href="https://www.google.com/maps/search/?api=1&query=Brunel+University+of+London+UB8+3PH">Brunel University of London, Uxbridge UB8 3PH, UK</a>

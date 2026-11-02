@@ -1,0 +1,51 @@
+---
+---
+
+// team page: member portraits on the left, photo wall on the right
+
+.team-layout {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 40px;
+  align-items: center;
+}
+
+// three equal columns so portraits scale with the column instead of wrapping
+.team-members .center {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  column-gap: 20px;
+  justify-items: center;
+}
+
+.team-members .center:first-child .portrait {
+  grid-column: 2;
+}
+
+.team-layout .portrait {
+  width: 100%;
+  max-width: 240px;
+  margin: 12px 0;
+}
+
+.team-wall {
+  margin: 0;
+}
+
+.team-wall img {
+  width: 100%;
+  border-radius: var(--rounded);
+  box-shadow: var(--shadow);
+}
+
+.team-wall figcaption {
+  margin-top: 10px;
+  font-style: italic;
+  text-align: center;
+}
+
+@media (max-width: 800px) {
+  .team-layout {
+    grid-template-columns: 1fr;
+  }
+}

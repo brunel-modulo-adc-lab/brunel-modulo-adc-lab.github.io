@@ -2,17 +2,24 @@
 layout: default
 ---
 
+{% assign scholar = page.links["google-scholar"] %}
+{% assign homepage = page.links["home-page"] %}
+
 {% capture floatcontent %}
 
 {% include portrait.html lookup=page.slug %}
 
-<div>
-  {% for link in page.links %}
-    {% assign key = link[0] %}
-    {% assign value = link[1] %}
-    {% include button.html type=key link=value style="bare" %}<br>
-  {% endfor %}
-</div>
+<p class="member-contact">
+  {% if page.links.email %}
+    Email: <a href="mailto:{{ page.links.email }}">{{ page.links.email }}</a><br>
+  {% endif %}
+  {% if scholar %}
+    <a href="https://scholar.google.com/citations?user={{ scholar }}">Google Scholar</a><br>
+  {% endif %}
+  {% if homepage %}
+    <a href="{{ homepage }}">Personal home page</a>
+  {% endif %}
+</p>
 
 {% endcapture %}
 
@@ -20,20 +27,14 @@ layout: default
 
 {{ content }}
 
-{% assign aliases = page.aliases
-  | default: page.name
-  | default: page.title
-  | join: ","
-  | split: ","
-  | array_filter
-%}
-
-{% capture search -%}
-  publications/?search={% for alias in aliases %}"{{ alias }}" {% endfor %}
-{%- endcapture %}
-
 <p class="center">
-  <a href="{{ search | relative_url | uri_escape }}">
-    Search for {{ page.name | default: page.title }}'s papers on the Publications page
-  </a>
+  {% if scholar %}
+    <a href="https://scholar.google.com/citations?user={{ scholar }}">
+      See {{ page.name | default: page.title }}'s papers on Google Scholar
+    </a>
+  {% elsif page.papers %}
+    <a href="{{ page.papers }}">
+      See {{ page.name | default: page.title }}'s publications
+    </a>
+  {% endif %}
 </p>

@@ -10,6 +10,7 @@ aliases:
 links:
   email: lu.gan@brunel.ac.uk
   home-page: https://people.brunel.ac.uk/~eestllg/personal.html
+papers: https://people.brunel.ac.uk/~eestllg/publications.html
 ---
 
 Dr Lu Gan is a Reader in Signal and Image Processing in the College of Engineering, Design and Physical Sciences, Brunel University of London.

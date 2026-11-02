@@ -29,7 +29,6 @@
 
     <div class="citation-text">
       {% assign type = site.data.types[citation.type] %}
-      {% include icon.html icon=type.icon %}
 
       <a
         {% if citation.link %}
@@ -67,10 +66,17 @@
         <span class="citation-date">
           {{- citation.date | default: "[no date info]" | date: "%d %b %Y" -}}
         </span>
-        &nbsp;·&nbsp;
-        <span class="citation-id">
-          {{- citation.id | default: "[no id info]" -}}
-        </span>
+        {% if citation.id %}
+          &nbsp;·&nbsp;
+          <span class="citation-id">
+            {{- citation.id -}}
+          </span>
+        {% elsif citation.note %}
+          &nbsp;·&nbsp;
+          <span class="citation-id">
+            {{- citation.note -}}
+          </span>
+        {% endif %}
       </div>
 
       {% if include.style == "rich" %}

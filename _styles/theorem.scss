@@ -1,0 +1,47 @@
+---
+---
+
+// highlighted box for key theorems, and problem/result summary rows
+
+.theorem {
+  margin: 30px 0;
+  padding: 16px 20px;
+  border-left: 4px solid var(--primary);
+  border-radius: var(--rounded);
+  background: var(--background);
+  box-shadow: var(--shadow);
+  text-align: left;
+}
+
+.theorem-title {
+  margin: 0 0 8px 0 !important;
+  color: var(--primary);
+  font-weight: var(--bold);
+}
+
+.theorem p:last-child {
+  margin-bottom: 0;
+}
+
+.theorem mjx-container[display="true"] {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.summary {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 16px;
+  margin: 20px 0;
+  text-align: left;
+}
+
+.summary > b {
+  color: var(--primary);
+}
+
+@media (max-width: 600px) {
+  .summary {
+    grid-template-columns: 1fr;
+  }
+}
